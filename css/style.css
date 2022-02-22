@@ -50,7 +50,21 @@
 .back-face{
 	/* visibility: hidden; */
 }
-
+#stats{
+	border: 1px solid #3d4250;
+}
+#stats table, #stats th, #stats td {
+	border: 1px solid #3d4250;
+} 
+.step{
+	width: 100px;
+	height: 25px;
+	display: flex;
+	line-height: 22px;
+	/* text-align: center; */
+	/* align-items: center; */
+	justify-content: center;
+}
 /* -------------------------------------------- */
 .footer {
 	display: flex;

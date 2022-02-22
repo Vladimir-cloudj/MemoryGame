@@ -4,7 +4,12 @@ let boardLocked = false;
 let firstCard, secondCard;
 
 let resultCard = document.querySelectorAll('.resultcard');
+let stepDiv = document.querySelectorAll('.step');
+let step = 0;
 let valueResult = 0;
+
+let score_audio = new Audio();
+score_audio.src = 'audio/score.mp3'
 
 const flipcard = e => {
 	if (boardLocked) {
@@ -37,9 +42,12 @@ const flipcard = e => {
 	
 }
 
+let k = 0,
+		final = [];
 const endRound = () => {
 	setTimeout(() => {
 		if (valueResult == 8) {
+			score_audio.play();
 			alert("The end game");
 			// resetBoard()
 			
@@ -49,7 +57,21 @@ const endRound = () => {
 			setTimeout(() => {
 				resetGame()
 			}, 500)
-			// return;
+			// stepDiv.innerHTML = step;
+			
+			final[k] = step;
+			localStorage.setItem(`${k}`, final[k]);
+			k++;
+			for(let i = 0; i < 5; i++) {
+				if (final[i]) {
+					stepDiv[i].innerHTML = final[i];
+				}
+
+        // step[i] = localStorage.getItem(`${i}`, step);
+        
+        // console.log(final[i]);
+        // console.log(statresult1[i-1]);
+    }
 		}
 		}, 1000)
 }
@@ -65,6 +87,7 @@ const checkForMatch = () => {
 	// } else {
 	// 	unFlipCard()		
 	// }
+	step++;
 }
 
 const disableCards = () => {
@@ -97,18 +120,6 @@ const unFlipCard = () => {
 		secondCard.classList.remove('flip');
 		resetBoard()
 	}, 1000)
-
-	// // valueResult > 8
-	// const endGame = () => {
-	// 	cards.forEach(card => {
-	// 		card.classList.contains('click')
-	// 	})
-	// }
-	// if (endGame) {
-	// 	alert("The end game");
-	// 	resetBoard()
-	// 	resetGame()
-	// }
 }
 
 
@@ -120,6 +131,7 @@ const unFlipCard = () => {
 
 
 const resetGame = () => {
+	step = 0;
 	cards.forEach(card => {
 		card.addEventListener('click', flipcard)
 		const randomIndex = Math.floor(Math.random() * cards.length);
