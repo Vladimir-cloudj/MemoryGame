@@ -55,10 +55,10 @@
 .footer {
 	display: flex;
 	justify-content: space-between;
-	margin-bottom: 30px;
+	margin-bottom: 0px;
 	font-size: 20px;
 	line-height: 50px;
-	padding: 30px 15px 0px 15px;
+	padding: 20px 10px 0px 10px;
 }
 
 .footer__leftside {
@@ -67,11 +67,11 @@
 }
 
 .footer__year {
-	margin-left: 20px;
+	margin-left: 10px;
 }
 
 .footer__github-link {
-		color: #24334e;
+	color: #24334e;
 	margin-left: 20px;
 	transition: 0.3s ease-out;
 }

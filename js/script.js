@@ -3,6 +3,9 @@ let hasFlipCard = false;
 let boardLocked = false;
 let firstCard, secondCard;
 
+let resultCard = document.querySelectorAll('.resultcard');
+let valueResult = 0;
+
 const flipcard = e => {
 	if (boardLocked) {
 		return;
@@ -24,11 +27,38 @@ const flipcard = e => {
 
 		checkForMatch();
 	}
+
+	// // valueResult > 8
+	// const endGame = () => {
+	// 	cards.forEach(card => {
+	// 		card.classList.contains('click')
+	// 	})
+	// }
+	
 }
+
+const endRound = () => {
+	setTimeout(() => {
+		if (valueResult == 8) {
+			alert("The end game");
+			// resetBoard()
+			
+			cards.forEach(card => {
+				card.classList.remove('flip')
+			})
+			setTimeout(() => {
+				resetGame()
+			}, 500)
+			// return;
+		}
+		}, 1000)
+}
+
+endRound()
 
 const checkForMatch = () => {
 	const isEqual = firstCard.dataset.value === secondCard.dataset.value;
-
+	
 	isEqual ? disableCards() : unFlipCard();
 	// if ( ) {
 	// 	disableCards()
@@ -38,17 +68,11 @@ const checkForMatch = () => {
 }
 
 const disableCards = () => {
+	
 	firstCard.removeEventListener('click', flipcard)
 	secondCard.removeEventListener('click', flipcard)
-}
-
-const unFlipCard = () => {
-	boardLocked = true
-	setTimeout(() => {
-		firstCard.classList.remove('flip');
-		secondCard.classList.remove('flip');
-		resetBoard()
-	}, 1000)
+	valueResult++;
+	endRound()
 }
 
 const resetBoard = () => {
@@ -60,18 +84,49 @@ const resetBoard = () => {
 	// double insertation
 	hasFlippedCard = boardLocked = false;
 	firstCard = secondCard = null;
-	// 
+	
+	//
+
 }
+
+const unFlipCard = () => {
+	
+	boardLocked = true
+	setTimeout(() => {
+		firstCard.classList.remove('flip');
+		secondCard.classList.remove('flip');
+		resetBoard()
+	}, 1000)
+
+	// // valueResult > 8
+	// const endGame = () => {
+	// 	cards.forEach(card => {
+	// 		card.classList.contains('click')
+	// 	})
+	// }
+	// if (endGame) {
+	// 	alert("The end game");
+	// 	resetBoard()
+	// 	resetGame()
+	// }
+}
+
+
 
 // function flipcard = e => {
 	
 // }
 
-cards.forEach(card => {
-	card.addEventListener('click', flipcard)
-	const randomIndex = Math.floor(Math.random() * cards.length);
-	card.style.order = randomIndex;
-})
 
 
-console.log("проверяющие. войдите в мое положение: мне просто не хватает времени на две работы и учебу. Я хочу доделать свое приложение до нормального функционала. Дайте мне сутки, надеюсь, что я смогу доделать хотя бы базовый функционал. спасибо");
+const resetGame = () => {
+	cards.forEach(card => {
+		card.addEventListener('click', flipcard)
+		const randomIndex = Math.floor(Math.random() * cards.length);
+		card.style.order = randomIndex;
+	})
+}
+
+resetGame()
+
+console.log("");
