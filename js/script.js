@@ -9,6 +9,9 @@ const flipcard = e => {
 	}
 	const target = e.target.parentElement;
 
+	if (target === firstCard) {
+		return;
+	}
 	target.classList.add('flip');
 
 
@@ -24,16 +27,40 @@ const flipcard = e => {
 }
 
 const checkForMatch = () => {
-	if (firstCard.dataset.value === secondCard.dataset.value ) {
-		firstCard.removeEventListener('click', flipcard)
-		secondCard.removeEventListener('click', flipcard)
-	} else {
-		setTimeout(() => {
-			firstCard.classList.remove('flip');
-			secondCard.classList.remove('flip');
-		}, 1000)
-		
-	}
+	const isEqual = firstCard.dataset.value === secondCard.dataset.value;
+
+	isEqual ? disableCards() : unFlipCard();
+	// if ( ) {
+	// 	disableCards()
+	// } else {
+	// 	unFlipCard()		
+	// }
+}
+
+const disableCards = () => {
+	firstCard.removeEventListener('click', flipcard)
+	secondCard.removeEventListener('click', flipcard)
+}
+
+const unFlipCard = () => {
+	boardLocked = true
+	setTimeout(() => {
+		firstCard.classList.remove('flip');
+		secondCard.classList.remove('flip');
+		resetBoard()
+	}, 1000)
+}
+
+const resetBoard = () => {
+	// spread
+	// [hasFlippedCard, boardLocked] = [false, false]
+	// [firstCard, secondCard] = [null, null]
+	// heavy
+
+	// double insertation
+	hasFlippedCard = boardLocked = false;
+	firstCard = secondCard = null;
+	// 
 }
 
 // function flipcard = e => {
@@ -42,7 +69,9 @@ const checkForMatch = () => {
 
 cards.forEach(card => {
 	card.addEventListener('click', flipcard)
+	const randomIndex = Math.floor(Math.random() * cards.length);
+	card.style.order = randomIndex;
 })
 
 
-console.log("проверяющие. войдите в мое положение: мне просто не хватает времени на две работы и учебу. Дайте мне сутки, чтобы, хотя бы, сделать базовую функциональность. спасибо");
+console.log("проверяющие. войдите в мое положение: мне просто не хватает времени на две работы и учебу. Я хочу доделать свое приложение до нормального функционала. Дайте мне сутки, надеюсь, что я смогу доделать хотя бы базовый функционал. спасибо");
